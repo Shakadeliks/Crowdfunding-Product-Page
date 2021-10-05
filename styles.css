@@ -323,8 +323,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.1);
-    height: 0.5px;
+    background: rgba(0, 0, 0, 0.2);
+    height: 0.6px;
     width: 28.5%;
     margin: auto;
     margin-top: 25px;
@@ -337,8 +337,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.1);
-    height: 0.5px;
+    background: rgba(0, 0, 0, 0.2);
+    height: 0.6px;
     width: 28.5%;
     margin: auto;
     margin-top: 25px;
@@ -523,12 +523,14 @@ main {
     left: 0;
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.5);
+    transition: var(--trans);
 
 }
 
 .show-modal #modal-background-overlay {
 
     display: block;
+    transition: var(--trans);
 }
 
 .modal {
@@ -547,12 +549,14 @@ main {
     padding-right: 1.5rem;
 
     overflow: auto;
+    transition: var(--trans);
     
 }
 
 .show-modal .modal {
 
     display: block;
+    transition: var(--trans);
 }
 
 .modal-heading {
@@ -746,7 +750,6 @@ main {
 
 .pledge-amount-input.error input {
     
-    /* border: solid 1.5px rgba(199, 7, 7, 0.1); */
 
     border-color: red;
 }
@@ -1002,38 +1005,12 @@ main {
         background-color: rgba(0, 0, 0, 0.1);
         display: flex;
         position: relative;
-        width: 0.6px;
+        width: 0.7px;
         height: 30%;
         align-items: flex-start;
         
     }
-    /* #second-main-section-first::after {
 
-        content: "";
-        display: table;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.1);
-        height: 28.5% ;
-        width: 0.5px;
-        margin: auto;
-        margin-top: 25px;
-        border-radius: 10px;
-    }
-    
-    #second-main-section-second::after {
-    
-        content: "";
-        display: table;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.1);
-        height: 28.5% ;
-        width: 0.5px;
-        margin: auto;
-        margin-top: 25px;
-        border-radius: 10px;
-    } */
 
     #total-backers,
     #days-left {
