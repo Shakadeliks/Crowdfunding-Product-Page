@@ -84,6 +84,7 @@ main {
     display: none;
     font-weight: var(--fw-700);
     
+    
 }
 
 .nav-menu.active {
@@ -100,7 +101,7 @@ main {
     background-color: white;
     font-size: 1rem;
     overflow: hidden;
-
+    transition: var(--trans);
 }
 .nav-menu.active li{
 
@@ -108,8 +109,6 @@ main {
     border-bottom: solid 1.5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: var(--trans);
-
-
 }
 
 .nav-menu.active li:hover {
@@ -289,7 +288,7 @@ main {
    
 }
 
-#bookmark-desktop {
+.bookmark-desktop {
     display: none;
 }
 
@@ -437,12 +436,17 @@ main {
 .in-stock,
 .modal-in-stock {
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    
 
 }
 
-
+.in-stock-amount {
+    font-size: 1.5rem;
+    font-weight: var(--fw-700);
+    margin-right: 0.5rem;
+}
 
 .in-stock > span {
 
@@ -468,9 +472,8 @@ main {
     height: 3.5rem;
     font-weight: var(--fw-700);
     border-radius: 2rem;
-    display: inline;
-    position: relative;
-    margin-top: 1.875rem;
+    display: block;
+    margin-top: 1.4rem;
     transition: var(--trans);
     
 }
@@ -608,11 +611,69 @@ main {
 
 } 
 
-.radio-container {
+.radio {
+    display: grid;
+    grid-template-areas: "radio product-name"
+                        "radio pledge-amount"; 
+    grid-template-columns: min-content auto;
+    grid-template-rows: auto auto;
+    column-gap: 1em; 
+}
 
+.radio__input {
+
+    grid-area: radio;
     display: flex;
     align-items: center;
-    
+}
+
+.radio__input > input {
+
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio__input > input:checked + .radio__control {
+    background: radial-gradient(var(--cyan) 50%, rgba(255, 0, 0, 0) 51%);
+}
+
+.radio__control {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: solid 1.5px rgba(0, 0, 0, 0.3);
+    transition: var(--trans);
+    cursor: pointer;
+}
+
+.radio__control:hover {
+
+    border: solid 1.5px var(--cyan);
+} 
+
+.radio__label {
+    grid-area: product-name;
+    display: block;
+    cursor: pointer;
+    transition: var(--trans);
+}
+
+.pledge__amount {
+    grid-area: pledge-amount;
+    display: block;
+    color: var(--cyan);
+}
+
+.product__name {
+    transition: var(--trans);
+}
+
+.product__name:hover  {
+
+    color: var(--cyan);
+
 }
 
 #pledge-with-no-reward {
@@ -638,12 +699,8 @@ main {
     color: var(--cyan);
 }
 
-.modal-pledge-option-radio {
 
-    display: none;
-}
-
-.custom-radio-btn {
+/* .custom-radio-btn {
 
     display: inline-block;
     width: 1.5rem;
@@ -655,7 +712,7 @@ main {
     cursor: pointer;
     transition: var(--trans);
     
-}
+} */
 
 .custom-radio-btn:hover {
 
@@ -748,6 +805,11 @@ main {
     width: 45%;
 }
 
+.pledge-amount-input:focus {
+    outline: none;
+    border: solid 2px var(--cyan); 
+}
+
 .pledge-amount-input.error input {
     
 
@@ -767,7 +829,12 @@ main {
     width: 45%;
     padding-top: auto;
     padding-bottom: auto;
+    transition: var(--trans);
 
+}
+
+.pledge-submit-btn:hover {
+    background-color: var(--dark-cyan);
 }
 
 .error-message {
@@ -953,9 +1020,8 @@ main {
         flex-direction: row;
     }
 
-    #bookmark-desktop {
+    .bookmark-desktop {
         display: flex;
-        
         background-color: rgb(240, 239, 239);
         height: 3.5rem;
         min-width: 7.375rem;
@@ -972,6 +1038,7 @@ main {
     }
 
     .selected {
+
         color: var(--cyan);
     }
 
@@ -989,9 +1056,9 @@ main {
     }
 
     .figures {
-        width: 33%;
-        text-align: left;
         
+        position: relative;
+        padding-right: 8%;
     }
 
     #second-main-section-second,
@@ -1001,13 +1068,11 @@ main {
     }
 
     #second-main-section-first::after,  #second-main-section-second::after {
-        content: '';
-        background-color: rgba(0, 0, 0, 0.1);
-        display: flex;
-        position: relative;
+        position: absolute;
         width: 0.7px;
-        height: 30%;
-        align-items: flex-start;
+        height: 60%;
+        right: 0;
+        bottom: 2.5rem;
         
     }
 
@@ -1039,8 +1104,11 @@ main {
 
     }
 
-    .in-stock {
+    .modal-in-stock {
         display: inline-flex;
+        position: absolute;
+        right: 1.7rem;
+        top: 2.25rem;
     }
 
     .product-pledge-btn {
@@ -1072,6 +1140,19 @@ main {
         margin: 0 0 0.5rem 0;
     } 
 
+    .pledge-selection {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .pledge-selection-heading {
+        display: inline-flex;
+    }
+
+    .input-btn-field {
+
+        display: inline-flex;
+    }
    
 
 }

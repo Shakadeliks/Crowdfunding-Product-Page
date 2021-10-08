@@ -1,3 +1,5 @@
+// Local storage to store all of the upate values of the customer's pledge(s)
+
 localStorage.setItem('amountRaised', '');
 localStorage.setItem('TotalBackers', '');
 localStorage.setItem('bookmarked', '');
@@ -57,66 +59,69 @@ navLinks.forEach (
 
 )
 
+// toggling of the styling of the bookmark btn 
+
 function bookmarkOnOff(bookmarked) {
 
-    bookmarked = true;
+     bookmarked = false;
 
-    bookmarked = !bookmarked
+     bookmarked = !bookmarked;
 
     const bookmarkOuter = document.querySelector(".bookmark-circle");
 
     const bookmarkInner = document.querySelector(".bookmark-shape");
 
+    const bookmarkText = document.querySelector('.bookmark-desktop');
+
     bookmarkOuter.classList.toggle('marked');
 
     bookmarkInner.classList.toggle('inner-marked');
 
-    // document.querySelector('#bookmark-desktop').style.color = "var(--cyan)"
+    bookmarkText.classList.toggle('selected');
 
-    if (bookmarked === true) {
-        document.querySelector('#bookmark-desktop').style.color = "var(--cyan)";
-    } else {
-        document.querySelector('#bookmark-desktop').style.color = "var(--dark-gray)"
+    console.log(bookmarkOuter.classList);
+
+    if (bookmarkOuter.classList.value === 'bookmark-circle marked') {
+
+        bookmarkText.textContent = 'Bookmarked';
+
+    } else if (bookmarkOuter.classList.value === 'bookmark-circle') {
+
+        bookmarkText.textContent = 'Bookmark'
     }
-
-}
-
-function bookmarkDesktop() {
-
-    const bookmarkedDesktop = document.querySelector('#bookmark-desktop');
-
-    bookmarkedDesktop.classList.toggle("selected");
 
 }
 
 const entireBookmarkBtn = document.getElementsByClassName('bookmark bookmark-btn-desktop');
 
-// for (i = 0; i < entireBookmarkBtn.length; i++) {
-//     entireBookmarkBtn[i].addEventListener('click', () => {
-//         bookmarkOnOff();
-//         bookmarkDesktop();
-//     })
-// }
  document.querySelector("#icon-bookmark").addEventListener('click', () => {
 
      bookmarkOnOff();
-     bookmarkDesktop();
+
 
  })
+
+document.querySelector(".bookmark-desktop").addEventListener('click', () => {
+    bookmarkOnOff();
+
+}) 
+
 // MODAL
 
 
 
 const modal = document.querySelector(".modal");
+
 const modalBackground = document.querySelector("#modal-background-overlay");
 
 document.querySelector("#backProjectBtn").addEventListener('click', e => {
 
     modal.style.display = "block";
+
     modalBackground.style.display = "block";
 
-    document.querySelector(".radio-btn-checkmark").checked = false;
-    document.querySelector(".modal-pledge-option-radio").checked = false;
+    document.querySelectorAll(".radio__input > input").checked = false;
+    
 })
 
 const modalRadioBtns = document.getElementsByClassName("modal-pledge-option-radio");
@@ -135,6 +140,7 @@ document.querySelector("#modal-close-btn").addEventListener("click", e => {
 
 })
 
+// function for changing style of the focused modal based on the selected radio btn
 
 const pledgeRadioBtnNoReward = document.querySelector("#pledge-option-no-rewards");
 
@@ -154,6 +160,8 @@ const pledgeInputBamboo = document.querySelector("#pledge-selection-bamboo");
 
 const pledgeInputBlack = document.querySelector("#pledge-selection-black");
 
+const x = window.matchMedia("(min-width: 600px)");
+
 pledgeRadioBtnNoReward.addEventListener('change', () => {
 
     if (pledgeRadioBtnNoReward.checked) {
@@ -164,13 +172,21 @@ pledgeRadioBtnNoReward.addEventListener('change', () => {
 
         modalCardBlack.style.border = 'solid 1.5px rgba(0, 0, 0, 0.1)';
 
-        pledgeInputNoReward.style.display = 'inline-block';
+        if(x.matches) {
 
-        pledgeInputBlack.style.display = 'none';
+            pledgeInputNoReward.style.display = 'inline-flex';
 
-        pledgeInputBamboo.style.display = 'none';
+            pledgeInputBlack.style.display = 'none';
 
+            pledgeInputBamboo.style.display = 'none';
+        } else {
 
+            pledgeInputNoReward.style.display = 'inline-block';
+
+            pledgeInputBlack.style.display = 'none';
+
+            pledgeInputBamboo.style.display = 'none';
+        }
 
     }
 })
@@ -185,11 +201,22 @@ pledgeRadioBtnBamboo.addEventListener('change', () => {
 
         modalCardBlack.style.border = 'solid 1.5px rgba(0, 0, 0, 0.1)';
 
-        pledgeInputBamboo.style.display = 'inline-block'
+        if(x.matches) {
 
-        pledgeInputBlack.style.display = 'none';
+            pledgeInputBamboo.style.display = 'inline-flex'
 
-        pledgeInputNoReward.style.display = 'none';
+            pledgeInputBlack.style.display = 'none';
+
+            pledgeInputNoReward.style.display = 'none';
+            
+        } else {
+
+            pledgeInputBamboo.style.display = 'inline-block';
+
+            pledgeInputBlack.style.display = 'none';
+
+            pledgeInputNoReward.style.display = 'none';
+        }
 
     }
 })
@@ -204,11 +231,24 @@ pledgeRadioBtnBlack.addEventListener('change', () => {
 
         modalCardBamboo.style.border = 'solid 1.5px rgba(0, 0, 0, 0.1)';
 
-        pledgeInputBlack.style.display = 'inline-block';
+        if(x.matches) {
 
-        pledgeInputBamboo.style.display = 'none';
+            pledgeInputBlack.style.display = 'inline-flex';
 
-        pledgeInputNoReward.style.display = 'none';
+            pledgeInputBamboo.style.display = 'none';
+
+            pledgeInputNoReward.style.display = 'none';
+            
+        } else {
+
+            pledgeInputBlack.style.display = 'inline-block';
+
+            pledgeInputBamboo.style.display = 'none';
+
+            pledgeInputNoReward.style.display = 'none';
+        }
+
+        
 
     }
 })
@@ -219,28 +259,53 @@ const pledgeSuccessModal = document.querySelector(".modal-pledge-complete");
 
 const progressBar = document.querySelector(".progress");
 
-const submitBtns = document.getElementsByClassName("pledge-submit-btn");
+const submitBtns = document.querySelectorAll("#pledge-submit-btn-black, #pledge-submit-btn-bamboo");
 
-const modalPledgeHeadings = document.querySelectorAll(".modal-pledge-heading-price > h5");
+const modalPledgeHeadings = document.getElementsByClassName("product__name");
 
-const modalPledgeRadios = document.getElementsByClassName("custom-radio-btn");
+const modalPledgeRadios = document.getElementsByClassName("radio__control");
+
+// function that changes color for both product heading and radio btn border on hover of either element
 
 for (let i = 0; i < modalPledgeHeadings.length; i++) {
 
     modalPledgeHeadings[i].addEventListener('mouseover', e => {
 
-        const pledgeRadio = e.target.parentElement.previousElementSibling;
+        const pledgeRadio = e.target.parentElement.previousElementSibling.lastElementChild;
+
+        modalPledgeHeadings[i].style.color = "var(--cyan)"
 
         pledgeRadio.style.border = 'solid 1.5px var(--cyan)';
     })
 
     modalPledgeHeadings[i].addEventListener('mouseout', e => {
 
-        const pledgeRadio = e.target.parentElement.previousElementSibling;
+        const pledgeRadio = e.target.parentElement.previousElementSibling.lastElementChild;
 
-        pledgeRadio.style.border = 'solid 1.5px rgba(0, 0, 0, 0.1)';
+        pledgeRadio.style.border = 'solid 1.5px rgba(0, 0, 0, 0.3)';
+
+        modalPledgeHeadings[i].style.color = "black";
     })
 }
+
+for (let i = 0; i < modalPledgeRadios.length; i++) {
+
+    modalPledgeRadios[i].addEventListener('mouseover', e => {
+
+        const pledgeProductName = e.target.parentElement.nextElementSibling.firstElementChild;
+
+        pledgeProductName.style.color = 'var(--cyan)';
+    })
+
+    modalPledgeRadios[i].addEventListener('mouseout', e => {
+
+        const pledgeProductName = e.target.parentElement.nextElementSibling.firstElementChild;
+
+        pledgeProductName.style.color = 'black';
+    })
+}
+
+// function for submission of user pledge 
 
 for (let i = 0; i < submitBtns.length; i++) {
 
@@ -308,12 +373,30 @@ for (let i = 0; i < submitBtns.length; i++) {
 
             pledgeRadioBtn.checked = false;
 
-            console.log(document.querySelector("#main-in-stock-amount-black").textContent);
-
+           
         }
 
     })
 }
+
+const noRewardPledgeSubmit = document.getElementById("pledge-submit-btn-no-reward");
+
+noRewardPledgeSubmit.addEventListener('click', () => {
+
+    let currentBackers = parseInt(document.querySelector("#total-backers").innerHTML.replace(/,/g, ''));
+    
+    currentBackers++;
+
+    document.querySelector("#total-backers").innerHTML = formatter.format(currentBackers);
+
+    localStorage.setItem('TotalBackers', currentBackers);
+
+    pledgeSuccessModal.style.display = 'flex';
+
+    modal.style.display = "none";
+
+})
+// function for resetting modal styles once pledge is complete
 
 const pledgeComplete = () => {
 
@@ -352,6 +435,8 @@ const selectRewardBlack = document.querySelector("#product-pledge-btn-black");
 const BlackRadioPledgeBtn = document.querySelector("#pledge-option-black");
 
 const BambooRadioPledgeRadioBtn = document.querySelector("#pledge-option-bamboo");
+
+// function to display modal and select relevant pledge  based on the pledge clicked on home page
 
 selectRewardBamboo.addEventListener('click', () => {
 
